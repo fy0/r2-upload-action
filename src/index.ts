@@ -63,13 +63,11 @@ const run = async (config: R2Config) => {
         console.log(config.destinationDir);
         //const fileName = file.replace(/^.*[\\\/]/, "");
         const fileName = file.replace(config.sourceDir, "");
-        const fileKey = path.posix.join(config.destinationDir !== "" ? config.destinationDir : config.sourceDir, fileName).replaceAll('\\', '/');
+        const fileKey = path.posix.join(config.destinationDir !== "" ? config.destinationDir : config.sourceDir, fileName).replaceAll(path.sep, path.posix.sep);
 
         if (fileKey.includes('.gitkeep'))
             continue;
-        
-        console.log(fileKey);
-        console.log('????? fileKey', fileKey.replaceAll('\\', '/'), fileKey.replaceAll(path.sep, path.posix.sep));
+
         const mimeType = mime.getType(file);
 
         const uploadParams: PutObjectCommandInput = {
